@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+@import "tailwindcss";
+
+@theme {
+  --color-background: #f7efe7;
+  --color-on-background: #241711;
+  --color-surface: #fffaf6;
+  --color-on-surface: #241711;
+  --color-surface-variant: #eadfd5;
+  --color-on-surface-variant: #6c5b50;
+  --color-surface-dim: #f2e6db;
+  --color-surface-bright: #fffdfb;
+  --color-surface-container-lowest: #fffdfb;
+  --color-surface-container-low: #fbf4ee;
+  --color-surface-container: #f5ebe2;
+  --color-surface-container-high: #efe3d8;
+  --color-surface-container-highest: #e7d6c8;
+  --color-outline: #c9b7aa;
+  --color-outline-variant: #dacbbf;
+  --color-primary: #cc5d22;
+  --color-primary-container: #f7b98c;
+  --color-on-primary: #fff8f2;
+  --color-on-primary-container: #4c210d;
+  --color-secondary: #6f4a2f;
+  --color-secondary-container: #ead0bf;
+  --color-on-secondary: #fff8f2;
+  --color-on-secondary-container: #3f2514;
+  --color-tertiary: #8c5d11;
+  --color-tertiary-container: #f1d8a3;
+  --color-on-tertiary: #fffaf1;
+  --color-on-tertiary-container: #4b3200;
+  --color-error: #b42318;
+  --color-error-container: #fde3df;
+  --color-on-error: #fff8f7;
+  --color-on-error-container: #7a271f;
+  --color-inverse-surface: #39271d;
+  --color-inverse-on-surface: #fff8f3;
+  --color-inverse-primary: #f28d52;
+  --color-primary-fixed: #ffd8c1;
+  --color-primary-fixed-dim: #f7b98c;
+  --color-on-primary-fixed: #4c210d;
+  --color-on-primary-fixed-variant: #7f3a16;
+  --color-secondary-fixed: #edd6c5;
+  --color-secondary-fixed-dim: #d6b29c;
+  --color-on-secondary-fixed: #3f2514;
+  --color-on-secondary-fixed-variant: #684730;
+  --color-tertiary-fixed: #f5e0ad;
+  --color-tertiary-fixed-dim: #e9c26f;
+  --color-on-tertiary-fixed: #4b3200;
+  --color-on-tertiary-fixed-variant: #775200;
+  --color-surface-tint: #cc5d22;
+
+  --radius-DEFAULT: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  --font-ui-label: "Manrope", sans-serif;
+  --font-ui-small: "Manrope", sans-serif;
+  --font-ui-button: "Manrope", sans-serif;
+  --font-headline-lg: "Fraunces", serif;
+  --font-headline-md: "Fraunces", serif;
+  --font-headline-lg-mobile: "Fraunces", serif;
+  --font-display-lg: "Fraunces", serif;
+  --font-body-md: "Manrope", sans-serif;
+  --font-body-lg: "Manrope", sans-serif;
+
+  --text-ui-label: 14px;
+  --text-ui-small: 12px;
+  --text-ui-button: 14px;
+  --text-headline-lg: 34px;
+  --text-headline-md: 24px;
+  --text-headline-lg-mobile: 28px;
+  --text-display-lg: 56px;
+  --text-body-md: 15px;
+  --text-body-lg: 18px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-on-background antialiased;
+    font-family: theme(--font-ui-label);
+    background-image:
+      radial-gradient(
+        circle at top left,
+        rgba(204, 93, 34, 0.12),
+        transparent 30%
+      ),
+      radial-gradient(
+        circle at bottom right,
+        rgba(111, 74, 47, 0.1),
+        transparent 32%
+      );
+  }
+
+  ::selection {
+    background: rgba(204, 93, 34, 0.18);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer utilities {
+  .focus-ring:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(204, 93, 34, 0.18);
+  }
+
+  .glass-panel {
+    background: rgba(255, 250, 246, 0.72);
+    backdrop-filter: blur(18px);
+  }
+}
+
+input::placeholder {
+  color: #8a7668;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
+}
