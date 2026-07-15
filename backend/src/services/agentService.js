@@ -1,4 +1,6 @@
 const NoteJob = require('../models/NoteJob.model');
+const path = require('path');
+const pdfParse = require('pdf-parse');
 
 const MOCK = process.env.MOCK_AGENT === "true";
 
@@ -10,12 +12,30 @@ const MOCK_RESPONSE = {
     needs_rag: false,
 };
 
-async function triggerAgent(jobId, topic, fileBase64 = "", contextProvided = false, filename = "") {
+async function extractSourceText(fileBuffer, filename = "") {
+    if (!fileBuffer || !Buffer.isBuffer(fileBuffer) || fileBuffer.length === 0) {
+        return "";
+    }
+
+    const ext = path.extname(filename).toLowerCase();
+    const isPdf = ext === ".pdf";
+
+    if (isPdf) {
+        const parser = new pdfParse.PDFParse(Uint8Array.from(fileBuffer));
+        console.log("Extracting text from PDF file:");
+        return await parser.getText();
+    }
+
+    return Buffer.from(fileBuffer).toString("utf-8");
+}
+
+async function triggerAgent(jobId, topic, fileBuffer = Buffer.alloc(0), contextProvided = false, filename = "") {
     await NoteJob.findByIdAndUpdate(jobId, { status: "running" });
 
     try {
         let data;
-
+        const rawInput = await extractSourceText(fileBuffer, filename);
+        // console.log("Extracted raw input:", rawInput.text);
         if (MOCK) {
             await new Promise((res) => setTimeout(res, 3000));
             data = MOCK_RESPONSE;
@@ -25,7 +45,7 @@ async function triggerAgent(jobId, topic, fileBase64 = "", contextProvided = fal
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     topic,
-                    raw_input:        Buffer.from(fileBase64 || "", "base64").toString("utf-8"),
+                    raw_input:        rawInput.text,
                     context_provided: contextProvided,
                     resume:           true,
                 }),

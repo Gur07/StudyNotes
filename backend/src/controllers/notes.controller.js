@@ -38,8 +38,7 @@ async function runWithFile(req, res) {
     }
 
     try {
-        const fileBase64 = req.file.buffer.toString("base64");
-        const filename   = req.file.originalname;
+        const filename = req.file.originalname;
 
         const job = await NoteJob.create({
             userId:          req.user.userId,
@@ -50,7 +49,7 @@ async function runWithFile(req, res) {
         });
 
         // fire and forget
-        triggerAgent(job._id.toString(), topic, fileBase64, true, filename);
+        triggerAgent(job._id.toString(), topic, req.file.buffer, true, filename);
 
         res.status(201).json({ success: true, jobId: job._id });
 
